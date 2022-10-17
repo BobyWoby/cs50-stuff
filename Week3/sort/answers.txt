@@ -1,0 +1,15 @@
+sort1 uses: bubble sort
+TIME:.128s
+
+How do you know?: it sorts the slowest when their random, however when the data is already
+sorted, it results in a faster time
+
+sort2 uses: merge sort
+TIME: .051s
+
+How do you know?:
+
+sort3 uses: selection sort
+TIME: .074s
+
+How do you know?: second slowest, but has a constant time
