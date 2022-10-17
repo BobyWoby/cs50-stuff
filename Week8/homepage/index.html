@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <link href="styles.css" rel="stylesheet">
+        <title>My Webpage</title>
+    </head>
+    <body class = "" id="body">
+        <nav class = "navbar navbar-expand-lg navbar-light nav-fill w-100">
+            <a class="navbar-brand" href="#"><img src="logo.png" width="50" height="50"> Homepage</a>
+            <a href = "page1.html" class = "nav-link grayText">page 1 <span class="sr-only"></span></a>
+            <a href = "page2.html" class = "nav-link grayText">page 2</a>
+            <a href = "page3.html" class = "nav-link grayText">page 3</a>
+            <a href = "page4.html" class = "nav-link grayText">page 4</a>
+        </nav>
+
+        <p class="" >RED</p>
+        <div class="slidecontainer">
+          <input type="range" min="0" max="255" value="50"  class="slider" id="red" >
+        </div>
+
+        <p class="" >GREEN</p>
+        <div class="slidecontainer">
+          <input type="range" min="0" max="255" value="50"  class="slider" id="green">
+        </div>
+
+        <p class="" >BLUE</p>
+        <div class="slidecontainer">
+          <input type="range" min="0" max="255" value="50"  class="slider" id="blue">
+        </div>
+        <div>
+          <!-- <iframe src="https://www.youtube.com/watch?v=xvFZjo5PgG0" width="1080" height="640"></iframe> -->
+        </div>
+
+
+
+        <script>
+            let body = document.querySelector("body");
+            var red = document.querySelector("#red");
+            var green = document.querySelector("#green");
+            var blue = document.querySelector("#blue");
+            body.style.backgroundColor = '#323232'
+           function decToHex(value) {
+                return value.toString(16).padStart(2, '0').toUpperCase();
+            }
+            function rgbToHex(Red, Green, Blue) {
+              return '#' + decToHex(Red) + decToHex(Green) + decToHex(Blue);
+            }
+            let r = Number(red.value);
+            let g = Number(green.value);
+            let b = Number(blue.value);
+            red.addEventListener("input", function(){
+              r = Number(red.value);
+              body.style.backgroundColor = rgbToHex(r,g,b);
+            })
+            green.addEventListener("input", function(){
+              g = Number(green.value);
+              body.style.backgroundColor = rgbToHex(r,g,b);
+            })
+            blue.addEventListener("input", function(){
+              b = Number(blue.value);
+              body.style.backgroundColor = rgbToHex(r,g,b);
+            })
+        </script>
+
+    </body>
+</html>
