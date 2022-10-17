@@ -1,0 +1,143 @@
+// Implements a dictionary's functionality
+
+#include <ctype.h>
+#include <stdbool.h>
+#include <string.h>
+#include "dictionary.h"
+#include <stdio.h>
+#include <stdlib.h>
+
+
+// Represents a node in a hash table
+typedef struct node
+{
+    char word[LENGTH + 1];
+    struct node *next;
+}
+node;
+
+// TODO: Choose number of buckets in hash table
+const unsigned int N = 26;
+
+// Hash table
+node *table[N];
+
+bool push(node *head, char word[]);
+void free_list(node *node);
+// Returns true if word is in dictionary, else false
+bool check(const char *word)
+{
+    // TODO
+    return false;
+}
+
+// Hashes word to a number
+// or maybe this one is supposed to load the word into the hash table
+unsigned int hash(const char *word)
+{
+    // TODO: Improve this hash function
+    return toupper(word[0]) - 'A';
+}
+
+// Loads dictionary into memory, returning true if successful, else false
+// This function is supposed to load the dictionary into a hash table i think
+bool load(const char *dictionary)
+{
+    // TODO
+    FILE *file = fopen(dictionary, "r");
+    if(file == NULL){
+        return false;
+    }
+    char tmp[BLOCK_SIZE];
+    char c = '\0';
+    char word1[LENGTH + 1];
+    int index = 0;
+    while(fread(&tmp,  sizeof(char), BLOCK_SIZE, file)){
+        for(int i = 0; i < BLOCK_SIZE; i++){
+            c = tmp[i];
+            if(isalpha(c) || (c == '\'' && index > 0)){
+                word1[index] = c;
+                if(index > LENGTH){
+                    while(fread(&c, sizeof(char), 1, file) && isalpha(c));
+                    index = 0;
+                }
+                index++;
+
+            }
+            //if it has an index greater than 0, and isn't a char/apostrophe, it must be a word in the dictionary
+            else if(index > 0){
+
+                word1[index] = '\0';
+                unsigned int hashVal = hash(word1);
+
+                //checks if the element in the table is empty
+                if(table[hashVal] == NULL){
+                    table[hashVal] = malloc(sizeof(node));
+                    //makes sure that theres still space
+                    if(table[hashVal] == NULL){
+                        return false;
+                    }
+                    //copies the string into the hash table space
+                    for(int j = 0; j < strlen(word1); j++){
+                        table[hashVal]->word[j] = word1[j];
+                    }
+                    table[hashVal]->next = NULL;
+                }
+
+                else{
+                    list_push(table[hash(word1)], word1);
+                }
+                index = 0;
+            }
+        }
+    }
+    return false;
+}
+
+// Returns number of words in dictionary if loaded, else 0 if not yet loaded
+unsigned int size(void)
+{
+    // TODO
+
+    return 0;
+}
+
+// Unloads dictionary from memory, returning true if successful, else false
+bool unload(void)
+{
+    // TODO
+    for(int i = 0; i < N; i++){
+        while(table[i] != NULL){
+            node *tmp = table[i]->next;
+            free(table[i]);
+            table[i] = tmp;
+        }
+    }
+    return true;
+}
+
+void free_list(node *node){
+    if(node->next == NULL){
+        free(node);
+    }
+    else{
+        free_list(node->next);
+    }
+}
+
+bool push(node *head, char word[]) {
+    node *current = head;
+    while(current->next != NULL) {
+        current = current->next;
+    }
+    /* now we can add a new variable */
+    current->next = malloc(sizeof(node));
+    if(current->next == NULL){
+        return false;
+    }
+    for(int i = 0; i < strlen(word);i++){
+        current->next->word[i] = word[i];
+    }
+    current->next->next = NULL;
+    return true;
+}

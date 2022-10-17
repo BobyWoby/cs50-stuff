@@ -1,0 +1,77 @@
+#include <stdlib.h>
+#include <stdio.h>
+
+typedef struct node
+{
+    int val;
+    struct node *next;
+} node;
+
+void print_list(node *head);
+
+int main(void)
+{
+
+    node *l_head = NULL;
+    node *l_tail = NULL;
+
+    for (int i = 0; i < 10; i++)
+    {
+        if (i == 0)
+        {
+            l_head = l_tail = malloc(sizeof(node));
+            if (l_head == NULL)
+            {
+                return 1;
+            }
+            l_tail->val = i;
+            l_tail->next = NULL;
+        }
+        else
+        {
+            l_tail = malloc(sizeof(node));
+            if (l_tail == NULL)
+            {
+                while (l_head->next != NULL)
+                {
+                    node *tmp = l_head->next;
+                    free(l_head);
+                    l_head = tmp;
+                    return 1;
+                }
+            }
+            l_tail->val = i;
+            l_tail->next = NULL;
+            node *tmp = l_head;
+            for(int j = 0; j < i)
+            {
+                tmp = tmp->next;
+            }
+            
+
+            l_tail = l_tail->next;
+        }
+    }
+
+    print_list(l_head);
+
+    while (l_head->next != NULL)
+    {
+        node *tmp1 = l_head->next;
+        free(l_head);
+        l_head = tmp1;
+    }
+
+    return 0;
+}
+
+void print_list(node *head)
+{
+    node *current = head;
+
+    while (current != NULL)
+    {
+        printf("%d\n", current->val);
+        current = current->next;
+    }
+}
