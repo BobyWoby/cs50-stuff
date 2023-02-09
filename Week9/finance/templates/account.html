@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Account
+{% endblock %}
+
+{% block main %}
+    <table class="table">
+        <tbody>
+            <tr>
+                <td >
+                    <form action="/change_username" method="get">
+                        <button class="btn btn-primary" type="submit">Change Username</button>
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <form action="/change_password" method="get">
+                        <button class="btn btn-primary" type="submit">Change Password </button>
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <form action="/deposit" method="get">
+                        <button class="btn btn-primary" type="submit">Deposit Money </button>
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <form action="/withdraw" method="get">
+                        <button class="btn btn-primary" type="submit">Withdraw Money </button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+
+    </table>
+
+{% endblock %}

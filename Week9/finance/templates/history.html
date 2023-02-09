@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    History
+{% endblock %}
+
+{% block main %}
+    <span> {{ total_val }}</span>
+    <table class="center-text table">
+        <tr class="center-text">
+            <th scope="col">Action</th>
+            <th scope="col">Symbol</th>
+            <th scope="col">Price</th>
+            <th scope="col">Shares</th>
+            <th scope="col">Timestamp</th>
+        </tr>
+        {% for event in logs %}
+        <tr class="center-text">
+            <th scope="col">{{ event['action'] }}</th>
+            <th scope="col">{{ event['symbol'] }}</th>
+            <th scope="col">{{ event['price'] }}</th>
+            <th scope="col">{{ event['shares'] }}</th>
+            <th scope="col">{{ event['time'] }}</th>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Quotes
+{% endblock %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for messsage in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+{% endwith %}
+{% block main %}
+    {% if symbol['name'] %}
+        <div>
+            <h2>{{symbol['name']}}</h2>
+            <h2>{{symbol['symbol']}}</h2>
+            <h2>{{symbol['price']}}</h2>
+        </div>
+    {% else %}
+        <h2>This is not a valid symbol</h2>
+    {% endif %}
+    <form action="/quote" method="post">
+        <div class="mb-3">
+            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="symbol" name="symbol" placeholder="Symbol" type="text">
+        </div>
+        <button class="btn btn-primary" type="submit">Search</button>
+    </form>
+{% endblock %}
